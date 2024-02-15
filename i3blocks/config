@@ -1,0 +1,67 @@
+
+#color=#F79494 soft red
+#color=#91E78B soft green
+#color=#A4C2F4 soft blue
+
+[window]
+command=sway-focusedwindow/sway-focusedwindow
+interval=1
+
+[host]
+command=hostname
+interval=1
+color=#91E78B
+
+[ip]
+command=ip addr show enp5s0 | awk '$1 == "inet" {print "IP: " $2}'
+interval=1
+color=#91E78B
+
+[cpu_temp]
+command=sensors | grep 'Tctl' | awk '{print "CPU TEMP: " $2}'
+interval=1
+color=#F79494
+
+[nvme_temp]
+command=sensors | grep 'Composite' | awk '{print "DISK TEMP: " $2}'
+interval=1
+color=#F79494
+
+[cpu]
+command=top -bn 1 | grep '%Cpu' | awk '{print "CPU: " $2 "%"}'
+interval=1
+color=#A4C2F4
+
+[ram]
+command=free | grep Mem | awk '{printf "RAM: %.1f%\n", $3/$2 * 100}'
+interval=1
+color=#A4C2F4
+
+[disk-home]
+command=df -h / | awk '$NF ~ /^\// {print "DISK: " $4}'
+interval=1
+color=#A4C2F4
+
+[volume-pipewire]
+command=volume-pipewire/volume-pipewire
+interval=persist
+SUBSCRIBE=1
+USE_ALSA_NAME=1
+
+[lock_button]
+command=swaylock -c 000000t
+Label=LOCK
+
+[suspend_button]
+command=systemctl suspend
+Label=Zzz
+
+[poweroff_button]
+command=systemctl poweroff
+Label=0/-
+
+[time]
+command=date +%T
+interval=1
+
+
